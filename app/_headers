@@ -1,0 +1,16 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-8L/q0S+wv9xJjfWo73yDFUT8JaAUNzAzjisscPg5CKw=' 'sha256-GBt4bwQInOq2qqHQVCUi77UThkb2ZHGaX1/rC3RhiM8=' 'sha256-KS/X+g5OfPotW2JJeD04unLQOiHN6q1WRkZr+TW3Fhs=' 'sha256-QQIdNItDJAfqu7/rky+beqsTJiMgcUWFhe1xadVL8ds=' 'sha256-nom508eI05BQ3NArFnfVS8K5G6Lkncw0wscxoZd2NoE=' 'sha256-qq5rIP2ucY3Kk8hbnLiRYiDTqEdYFOfek02LTfBwnF4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests; base-uri 'self'; form-action 'self'
+
+/404.html
+  X-Robots-Tag: noindex
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+/icons/*
+  Cache-Control: public, max-age=31536000, immutable

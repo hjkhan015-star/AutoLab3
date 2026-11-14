@@ -1,0 +1,34 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   components.css — Auto Lab shared component styles (v1.0.0)
+
+   Styles for the shared side-panel widgets built by components.js:
+   overview sections, fault cards, self-check quiz and the slider
+   control (the legend is the Monitor footer, the readout grid is Monitor rows).
+
+   Link it AFTER app.css in any module:
+     <link rel="stylesheet" href="app.css">
+     <link rel="stylesheet" href="components.css">
+   Each module only needs its own accent colour:
+     :root { --al-accent: #f97316; }
+   ═══════════════════════════════════════════════════════════════════════ */
+.al-tabs{margin-top:var(--s-2h);}
+.al-sec{margin-top:var(--s-3);}
+.al-sec:first-child{margin-top:var(--s-0h);}
+.al-sec h4{margin:0 0 var(--s-1h);font-size:var(--fs-2xs);letter-spacing:.09em;text-transform:uppercase;color:var(--text-mute);font-weight:700;}
+.al-sec p{margin:0 0 var(--s-2);font-size:var(--fs-sm);line-height:1.5;color:var(--text-dim);}
+.al-sec ul{margin:0 0 var(--s-2);padding-left:var(--s-4);font-size:var(--fs-sm);line-height:1.55;color:var(--text-dim);}
+.al-sec li{margin-bottom:var(--s-0h);}
+.al-sec b{color:var(--text);}
+.al-fault{border:1px solid var(--border);border-radius:var(--r-xs,6px);padding:var(--s-2) var(--s-2h);margin-bottom:var(--s-1h);background:var(--surface-2);}
+.al-fault .t{font-size:var(--fs-sm);font-weight:700;color:var(--text);margin-bottom:var(--s-0h);}
+.al-fault .s{font-size:var(--fs-xs);line-height:1.45;color:var(--text-dim);}
+.al-fault .c{font-size:var(--fs-xs);line-height:1.45;color:var(--text-mute);margin-top:var(--s-1);}
+.al-q{margin-bottom:var(--s-3);}
+.al-q .q{font-size:var(--fs-sm);font-weight:600;color:var(--text);margin-bottom:var(--s-1h);line-height:1.4;}
+.al-opt{display:block;width:100%;text-align:left;min-height:40px;padding:var(--s-2) var(--s-2h);margin-bottom:var(--s-1);border:1px solid var(--border);border-radius:var(--r-xs,6px);background:var(--surface-2);color:var(--text-dim);font:inherit;font-size:var(--fs-sm);cursor:pointer;}
+.al-opt:hover{border-color:var(--border-hi);}
+.al-opt:focus-visible{outline:2px solid var(--al-accent);outline-offset:2px;}
+.al-opt.ok{border-color:var(--ok);color:var(--ok);}
+.al-opt.no{border-color:var(--crit);color:var(--crit);}
+.al-exp{display:none;font-size:var(--fs-xs);line-height:1.45;color:var(--text-mute);margin-top:var(--s-1);}
+.al-q.done .al-exp{display:block;}
