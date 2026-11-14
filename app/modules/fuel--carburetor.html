@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d13">
+<title>Carburetor — Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════════
+     Carburetor module — widget interiors + small panel extras.
+     ═══════════════════════════════════════════════════════════════════ */
+
+  .carb-note {
+    margin-top: var(--s-3);
+    padding-top: var(--s-2h);
+    font-size: var(--fs-sm); line-height: 1.5;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .carb-note strong { color: var(--text); }
+
+
+
+  #ui-monitor [data-row="phase"] .mon-row-v { font-size: var(--fs-2xs); }
+</style>
+</head>
+<body>
+  <div id="canvas-wrap"></div>
+  <div id="labels-root"></div>
+
+  <script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+  <script type="module" src="fuel--carburetor.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Infotainment &amp; Audio — Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<link rel="stylesheet" href="../core/components.css">
+<style>
+:root { --al-accent: #6366f1; }
+html.light-theme { --al-accent: color-mix(in oklch, #6366f1 68%, black); }
+</style>
+</head>
+<body>
+<div id="canvas-wrap"></div>
+<div id="labels-root"></div>
+
+<script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+<script type="module" src="info--headunit.js"></script>
+</body>
+</html>

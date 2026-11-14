@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d13">
+<title>Suspension System — Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<style>
+  /* ═══════ Road status bar (overlay) ═══════ */
+  #road-info {
+    position: fixed;
+    bottom: calc(var(--dock-h, 24vh) + var(--s-3, 12px));   /* clear the control dock */
+    left: 50%; transform: translateX(-50%);
+    display: flex; gap: var(--s-2); padding: var(--s-1) var(--s-2h);
+    background: color-mix(in oklch, var(--bg) 72%, transparent); border: 1px solid color-mix(in oklch, var(--text) 8%, transparent);
+    border-radius: 10px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    font-size: var(--fs-xs); font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--text-dim); z-index: 6; pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out);
+    white-space: nowrap;
+  }
+  #road-info .label { opacity: .6; }
+  #road-info .val {
+    color: var(--text);
+    font-family: var(--font-mono);
+  }
+  #road-info .val.pot  { color: var(--c-red); }
+  #road-info .val.bump { color: var(--c-amber); }
+  #road-info .val.warn { color: var(--c-red); }
+
+  /* ═══════ Impact flash + warning (overlays) ═══════ */
+  #impact-flash {
+    position: fixed; inset: 0; pointer-events: none; z-index: 8;
+    background: radial-gradient(ellipse at center,
+      transparent 35%, color-mix(in oklch, var(--c-red) 42%, transparent) 100%);
+    opacity: 0; transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  #impact-warning {
+    position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
+    background: color-mix(in oklch, var(--c-red) 95%, transparent); color: var(--c-red);
+    padding: var(--s-2) var(--s-4h); border-radius: 10px;
+    font-weight: 800; font-size: var(--fs-sm); letter-spacing: .06em;
+    border: 1px solid color-mix(in oklch, var(--c-red) 60%, transparent);
+    box-shadow: 0 10px 30px color-mix(in oklch, var(--c-red) 35%, transparent);
+    opacity: 0; transition: opacity var(--dur-fast) var(--ease-out);
+    z-index: 9; pointer-events: none;
+    text-transform: uppercase; white-space: nowrap; max-width: 88vw;
+  }
+  #impact-warning.on { opacity: 1; }
+
+  /* ═══════ Toolbar extra — SUSP toggle ═══════ */
+  @keyframes suspRigidPulse {
+    from { box-shadow: 0 0 8px color-mix(in oklch, var(--c-red) 35%, transparent); }
+    to   { box-shadow: 0 0 18px color-mix(in oklch, var(--c-red) 70%, transparent); }
+  }
+
+</style>
+</head>
+<body>
+  <div id="canvas-wrap"></div>
+  <div id="labels-root"></div>
+  <div id="impact-flash"></div>
+  <div id="impact-warning">⚠ IMPACT — every bump slams the chassis</div>
+
+  <div id="road-info">
+    <span class="label">Road:</span>
+    <span class="val" id="road-val">Flat</span>
+    <span class="label" id="road-next-label"></span>
+  </div>
+
+  <script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+  <script type="module" src="suspension--suspension.js"></script>
+</body>
+</html>

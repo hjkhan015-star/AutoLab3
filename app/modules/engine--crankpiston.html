@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crankshaft & Pistons · Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<link rel="stylesheet" href="../core/components.css">
+<style>
+:root { --al-accent: #ca8a04; }
+html.light-theme { --al-accent: #a16207; }
+.ui-tb-btn.active{outline:2px solid var(--al-accent);color:var(--al-accent);}
+.cp-note{margin:var(--s-2) 0 0;font-size:var(--fs-xs);line-height:1.45;color:var(--text-mute);}
+
+</style>
+</head>
+<body>
+<div id="canvas-wrap"></div>
+<div id="labels-root"></div>
+
+<script src="../core/guard.js"></script>
+<!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+<script type="module" src="engine--crankpiston.js"></script>
+</body>
+</html>

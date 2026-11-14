@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d13">
+<title>Differential — Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<style>
+  /* Module-local overlays only (tokens, no hex): wheel-slip flash and the two tyre-speed chips.
+     Every number lives in the Monitor; steering is the dock's Steering axis. */
+  #status-flash {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--c-red);
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xl); font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; pointer-events: none;
+    opacity: 0; transition: opacity var(--dur-fast);
+    text-shadow: 0 0 24px color-mix(in oklch, var(--c-red) 85%, transparent);
+    z-index: 60; text-align: center; max-width: 80vw;
+    padding: var(--s-2) var(--s-4h); border-radius: var(--r-sm);
+    background: color-mix(in oklch, var(--bg-elev) 60%, transparent);
+    border: 1px solid color-mix(in oklch, var(--c-red) 30%, transparent);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  #status-flash.on { opacity: 1; animation: flashPulse 1s infinite; }
+  @keyframes flashPulse { 50% { opacity: 0.55; } }
+
+  #tyre-dim-svg { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 40; }
+  .tyre-speed-chip {
+    --chip: var(--c-cyan);
+    position: fixed; z-index: 41;
+    display: flex; flex-direction: column; gap: var(--s-0h);
+    padding: var(--s-1h) var(--s-2h); border-radius: 10px;
+    background: color-mix(in oklch, var(--bg-elev) 85%, transparent);
+    border: 1px solid color-mix(in oklch, var(--chip) 45%, transparent);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    font-family: var(--font-mono);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    left: -999px; top: -999px; white-space: nowrap;
+  }
+  .tyre-speed-chip.right { --chip: var(--c-amber); }
+  .tyre-speed-chip .tsc-label {
+    font-size: var(--fs-2xs); letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; font-family: var(--font-sans); color: var(--chip);
+  }
+  .tyre-speed-chip .tsc-val {
+    font-size: var(--fs-sm); font-weight: 800; color: var(--text);
+    font-variant-numeric: tabular-nums; letter-spacing: 0.01em;
+  }
+  @media (max-width: 720px) {
+    .tyre-speed-chip { padding: var(--s-1) var(--s-2); }
+    .tyre-speed-chip .tsc-val { font-size: var(--fs-xs); }
+  }
+</style>
+</head>
+<body>
+  <div id="canvas-wrap"></div>
+
+  <div id="status-flash"></div>
+
+  <svg id="tyre-dim-svg"></svg>
+  <div id="tyre-speed-left" class="tyre-speed-chip">
+    <span class="tsc-label">Left tyre</span>
+    <span class="tsc-val" id="tyre-speed-left-val">0.0 u/s</span>
+  </div>
+  <div id="tyre-speed-right" class="tyre-speed-chip right">
+    <span class="tsc-label">Right tyre</span>
+    <span class="tsc-val" id="tyre-speed-right-val">0.0 u/s</span>
+  </div>
+
+  <div id="labels-root"></div>
+
+  <script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+  <script type="module" src="shaftdiff--differential.js"></script>
+</body>
+</html>

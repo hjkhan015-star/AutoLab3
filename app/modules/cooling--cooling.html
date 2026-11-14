@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d13">
+<title>Cooling System — Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════════
+     Cooling module — only the pieces that aren't part of the universal
+     kit's standard chrome.
+     ═══════════════════════════════════════════════════════════════════ */
+
+  /* ── Panel readout: cooling-system flow chips ── */
+  #system-flow {
+    display: flex; flex-wrap: wrap; gap: var(--s-1h);
+    margin: var(--s-2h) 0 var(--s-1);
+  }
+  .flow-chip {
+    font-size: var(--fs-xs);
+    padding: var(--s-1h) var(--s-2);
+    border-radius: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    transition: background var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out);
+  }
+
+  /* ── Panel readout: fins note ── */
+  #fins-note {
+    margin-top: var(--s-2h);
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+    padding: var(--s-2) var(--s-2h);
+    border-radius: 9px;
+    display: none;
+  }
+  #fins-note.fins-on {
+    display: block;
+    background: color-mix(in oklch, var(--accent) 12%, transparent);
+    color: color-mix(in oklch, var(--accent) 82%, var(--text));
+  }
+  #fins-note.fins-off {
+    display: block;
+    background: color-mix(in oklch, var(--crit) 16%, transparent);
+    color: color-mix(in oklch, var(--crit) 88%, var(--text));
+  }
+
+  /* ── Overheat screen overlay ── */
+  #overheat-overlay {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 9;
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-out);
+    background: radial-gradient(ellipse at center,
+      transparent 42%, color-mix(in oklch, var(--c-red) 42%, transparent) 100%);
+  }
+  #overheat-overlay.on {
+    opacity: 1;
+    animation: heatPulse 1.4s infinite;
+  }
+  @keyframes heatPulse { 50% { opacity: .55; } }
+
+  /* ── Alert chip ── */
+  #alert-chip {
+    position: fixed;
+    z-index: 11;
+    left: 50%;
+    top: 22px;
+    transform: translateX(-50%) translateY(-14px);
+    background: color-mix(in oklch, var(--c-red) 95%, transparent);
+    border: 1px solid color-mix(in oklch, var(--c-red) 60%, transparent);
+    color: var(--c-red);
+    padding: var(--s-2h) var(--s-4h);
+    border-radius: 12px;
+    font-weight: 750;
+    font-size: var(--fs-md);
+    letter-spacing: .03em;
+    box-shadow: 0 10px 30px color-mix(in oklch, var(--c-red) 35%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+    max-width: calc(100vw - 40px);
+    text-align: center;
+  }
+  #alert-chip.on {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── 3D callouts ── */
+  .callout {
+    position: fixed;
+    z-index: 6;
+    pointer-events: none;
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs); font-weight: 600; letter-spacing: .01em;
+    padding: var(--s-0h) var(--s-2);
+    border-radius: var(--r-pill);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    color: var(--text);
+    white-space: nowrap;
+    transform: translate(-50%,-50%);
+    display: none;
+  }
+  html.light-theme .callout { background: var(--surface-2); }
+  .callout-dot {
+    position: fixed;
+    z-index: 4;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%,-50%);
+    background: currentColor;
+    box-shadow: 0 0 8px currentColor;
+    display: none;
+  }
+  .callout-line {
+    position: fixed;
+    z-index: 4;
+    height: 1px;
+    pointer-events: none;
+    transform-origin: 0 50%;
+    background: currentColor;
+    opacity: .55;
+    display: none;
+  }
+
+  
+  .callout { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-color: color-mix(in oklch, var(--c, currentColor) 42%, var(--border)); }
+  .callout::before { content:''; display:inline-block; width:6px; height:6px; border-radius:50%;
+    background: var(--c, currentColor); box-shadow: 0 0 6px var(--c, currentColor); margin-right:var(--s-1h); vertical-align:1px; }
+  .legend-grad { height:5px; border-radius:3px; margin-top:var(--s-0h); background: linear-gradient(90deg,var(--c-sky),var(--c-orange),var(--c-red)); }
+  .legend-ends { display:flex; justify-content:space-between; font-size:var(--fs-2xs); opacity:.8; }
+    @keyframes finWarn {
+    50% { box-shadow: 0 0 16px color-mix(in oklch, var(--crit) 45%, transparent); }
+  }
+
+</style>
+</head>
+<body>
+<div id="canvas-wrap"></div>
+<div id="labels-root"></div>
+
+<div id="overheat-overlay"></div>
+<div id="alert-chip">⚠ OVERHEATING — REFIT THE FINS</div>
+
+<script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+<script type="module" src="cooling--cooling.js"></script>
+</body>
+</html>

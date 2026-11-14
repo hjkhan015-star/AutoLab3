@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OBD-II · Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<link rel="stylesheet" href="../core/components.css">
+<style>
+:root { --al-accent: #22d3ee; }
+html.light-theme { --al-accent: #0891b2; }
+.al-pins{display:grid;grid-template-columns:auto 1fr;gap:var(--s-0h) var(--s-2h);font:500 var(--fs-xs)/1.5 var(--font-mono);}
+.al-pins .p{color:var(--al-accent);font-weight:700;}
+.al-pins .d{color:var(--text-dim);}
+.ui-tb-btn.active{outline:2px solid var(--al-accent);color:var(--al-accent);}
+
+.al-kv{display:flex;justify-content:space-between;gap:var(--s-2);font:500 var(--fs-xs)/1.6 var(--font-mono);color:var(--text-dim);}
+.al-kv b{color:var(--text);font-weight:700;}.al-kv.bad b{color:var(--crit);}.al-kv.ok b{color:var(--ok);}
+.al-fault .c ol{margin:var(--s-1) 0 0;padding-left:var(--s-4);}.al-fault .tag{float:right;font-size:var(--fs-2xs);font-weight:800;text-transform:uppercase;color:var(--warn);}
+#status-flash{position:fixed;top:56px;left:50%;transform:translateX(-50%);z-index:60;padding:var(--s-2) var(--s-4);border-radius:8px;font:800 var(--fs-sm) var(--font-mono);letter-spacing:.08em;text-transform:uppercase;background:color-mix(in oklch,var(--bg) 72%,transparent);border:1px solid var(--border);pointer-events:none;opacity:0;transition:opacity var(--dur-fast,.25s);max-width:90vw;text-align:center;}
+#status-flash.on{opacity:1;}
+</style>
+</head>
+<body>
+<div id="canvas-wrap"></div>
+<div id="labels-root"></div>
+<div id="status-flash"></div>
+
+<script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+<script type="module" src="ecu--obd2.js"></script>
+</body>
+</html>

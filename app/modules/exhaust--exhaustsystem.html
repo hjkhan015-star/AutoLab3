@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d13">
+<title>Exhaust System — Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<style>
+  /* ═══════ Catalyst chemistry block (inside info panel) ═══════ */
+  #cat-chem {
+    margin-top: var(--s-3); padding-top: var(--s-2h);
+    border-top: 1px solid var(--border, color-mix(in oklch, var(--text) 10%, transparent));
+    font-size: var(--fs-xs); color: var(--text-dim);
+  }
+  #cat-chem .cc-title {
+    font-size: var(--fs-2xs); font-weight: 800; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--text-mute);
+    margin: var(--s-3) 0 var(--s-1);
+  }
+  #cat-chem .cc-title:first-child { margin-top: 0; }
+  #cat-chem .cc-note { margin-top: var(--s-1h); line-height: 1.5; }
+  #cat-chem .cc-eff {
+    display: grid; grid-template-columns: 50px 1fr 104px;
+    align-items: center; gap: var(--s-2); margin: var(--s-1) 0;
+  }
+  #cat-chem .cc-eff b {
+    text-align: right; color: var(--text);
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xs); font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+  #cat-chem .cc-bar, #cat-chem .cc-act {
+    height: 6px; border-radius: 99px; overflow: hidden;
+    background: var(--surface-3, color-mix(in oklch, var(--paper) 8%, transparent));
+  }
+  #cat-chem .cc-act { height: 4px; }
+  #cat-chem .cc-bar i, #cat-chem .cc-act i {
+    display: block; height: 100%; width: 0; border-radius: 99px;
+    background: currentColor; transition: width var(--dur-base) linear;
+  }
+  #cat-chem .cc-grp { margin: var(--s-2h) 0 var(--s-0h); font-size: var(--fs-2xs); font-weight: 800; letter-spacing: .03em; }
+  #cat-chem .cc-rx {
+    display: grid; grid-template-columns: 8px 1fr 38px;
+    align-items: center; gap: var(--s-2); padding: var(--s-0h) 0;
+  }
+  #cat-chem .cc-dot { width: 8px; height: 8px; border-radius: 50%; }
+  #cat-chem .cc-eq {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs); line-height: 1.4; color: var(--text);
+  }
+
+
+  /* ═══════ Toolbar extras config switcher ═══════ */
+</style>
+</head>
+<body>
+  <div id="canvas-wrap"></div>
+  <div id="labels-root"></div>
+
+  <script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+  <script type="module" src="exhaust--exhaustsystem.js"></script>
+</body>
+</html>

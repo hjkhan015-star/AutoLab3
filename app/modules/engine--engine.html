@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d13">
+<title>4-Stroke Engine — Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════════
+     Engine module — instrument panel + crank widget interiors.
+     All chrome (panel, chip, toolbar, widget container/caption) is
+     provided by app.css. Only the interiors of custom pieces live here.
+     ═══════════════════════════════════════════════════════════════════ */
+
+  /* ── Simplified / Advanced toggle ── */
+
+  /* ── Timeline (4 stroke buttons) ── */
+
+  /* ── Cycle bar + scale ── */
+  .cycle-bar {
+    position: relative; margin-top: var(--s-2h);
+    height: 6px;
+    background: var(--surface-3);
+    border-radius: 6px; overflow: hidden;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out);
+  }
+  .cycle-bar:hover { background: color-mix(in oklch, var(--text) 12%, transparent); }
+  #cycle-fill {
+    height: 100%; width: 0%;
+    background: var(--accent);
+    border-radius: 6px;
+    transition: background var(--dur-base) var(--ease-out);
+  }
+  .cycle-bar .tick {
+    position: absolute; top: 0; bottom: 0; width: 1px;
+    background: color-mix(in oklch, var(--text) 25%, transparent);
+    pointer-events: none;
+  }
+  .cycle-scale {
+    display: flex; justify-content: space-between;
+    font-size: var(--fs-2xs); letter-spacing: .08em;
+    color: var(--text-mute);
+    margin-top: var(--s-1); text-transform: uppercase;
+  }
+
+  /* ── Slow-mo toggle (override accent to warn colour) ── */
+  #rpm-label.slow { color: var(--warn) !important; font-weight: 800; }
+
+  /* ── Engine-config switcher (lives inside toolbar extras) ── */
+
+  /* ── Chip: the stroke name is text, so reduce the big-value font ── */
+  #ui-monitor .mon-value {
+    font-size: var(--fs-lg); letter-spacing: -.01em; font-weight: 800;
+    line-height: 1.15;
+  }
+
+</style>
+</head>
+<body>
+  <div id="canvas-wrap"></div>
+  <div id="labels-root"></div>
+
+  <script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+  <script type="module" src="engine--engine.js"></script>
+</body>
+</html>

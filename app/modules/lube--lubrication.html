@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d13">
+<title>Lubrication System — Auto Lab</title>
+<link rel="stylesheet" href="../core/app.css">
+<link rel="stylesheet" href="../core/controls.css">
+<link rel="stylesheet" href="../core/components.css">
+<style>
+
+  /* ═══════════════════════════════════════════════════════════
+     OVERLAY — status flash
+     ═══════════════════════════════════════════════════════════ */
+  #status-flash {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--c-red);
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xl); font-weight: 800;
+    letter-spacing: .14em; text-transform: uppercase;
+    pointer-events: none; opacity: 0;
+    transition: opacity var(--dur-fast, .25s);
+    z-index: 60; text-align: center; max-width: 80vw;
+    padding: var(--s-2h) var(--s-5); border-radius: 8px;
+    text-shadow: 0 0 24px color-mix(in oklch, var(--c-red) 85%, transparent), 0 0 60px color-mix(in oklch, var(--c-red) 50%, transparent);
+    background: color-mix(in oklch, var(--bg) 62%, transparent);
+    border: 1px solid color-mix(in oklch, var(--c-red) 35%, transparent);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* ═══ OIL GRADE LAB — viscosity equalizer (lives in the shared panel; tokens only) ═══ */
+  .gl-read { display: flex; justify-content: space-between; align-items: baseline; margin: var(--s-0h) 0 var(--s-1h); font-family: var(--font-mono); color: var(--text-dim); }
+  .gl-read b { font-size: var(--fs-xl); color: var(--text); }
+  .gl-zone { font-weight: 800; font-size: var(--fs-2xs); letter-spacing: .1em; text-transform: uppercase; }
+  #eq { display: flex; align-items: flex-end; gap: var(--s-0h); height: 120px; padding-top: var(--s-1); border-bottom: 1px solid var(--border); }
+  .eq-b { flex: 1; position: relative; height: 100%; display: flex; align-items: flex-end; }
+  .eq-b > span { display: block; width: 100%; min-height: 3px; border-radius: 3px 3px 0 0; transition: height var(--dur-slow) var(--ease-out), background var(--dur-base) var(--ease-out);
+    background-image: repeating-linear-gradient(to top, transparent 0 5px, color-mix(in oklch, var(--bg) 70%, transparent) 5px 6px); }
+  .eq-b > i { position: absolute; left: -1px; right: -1px; height: 0; border-top: 2px dashed var(--text); opacity: .8; transition: bottom var(--dur-slow) var(--ease-out); }
+  .eq-b.cur > span { outline: 2px solid var(--text); outline-offset: 1px; }
+  .eq-b.live { flex: 1.5; margin-right: var(--s-1h); }
+  .eq-b.live > span { transition: height var(--dur-fast) linear, background var(--dur-fast) var(--ease-out); }
+  .eq-t { display: flex; gap: var(--s-0h); font: var(--fs-2xs) var(--font-mono); color: var(--text-mute); margin-top: var(--s-0h); }
+  .eq-t span { flex: 1; text-align: center; } .eq-t span.live { flex: 1.5; margin-right: var(--s-1h); }
+  .gl-leg { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2h); font-size: var(--fs-2xs); color: var(--text-dim); margin-top: var(--s-1h); }
+  .gl-leg i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: var(--s-1); vertical-align: -1px; }
+  .gl-info table { width: 100%; border-collapse: collapse; margin: var(--s-1h) 0; font-size: var(--fs-xs); color: var(--text-dim); }
+  .gl-info th, .gl-info td { text-align: left; padding: var(--s-1) var(--s-1h); vertical-align: top; border-top: 1px solid var(--border); }
+  .gl-info th { width: 26%; color: var(--text); } .gl-info p { margin: var(--s-1h) 0; font-size: var(--fs-xs); color: var(--text-dim); }
+  @media (prefers-reduced-motion: reduce) { .eq-b > span, .eq-b > i { transition: none; } }
+  #status-flash.on { opacity: 1; animation: flashPulse 1.1s infinite; }
+  @keyframes flashPulse { 50% { opacity: .55; } }
+</style>
+</head>
+<body>
+  <div id="canvas-wrap"></div>
+  <div id="status-flash"></div>
+  <div id="labels-root"></div>
+
+  <script src="../core/guard.js"></script>
+  <!--importmap:begin-->
+<script type="importmap">
+{ "imports": {
+  "three": "../assets/three.module.js",
+  "three/addons/controls/OrbitControls.js": "../assets/orbit-controls.js",
+  "three/addons/environments/RoomEnvironment.js": "../assets/room-environment.js"
+} }
+</script>
+<!--importmap:end-->
+
+  <script type="module" src="lube--lubrication.js"></script>
+</body>
+</html>
