@@ -1,0 +1,18 @@
+{
+  "name": "autolab3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive 3D automotive learning lab (static, offline-capable PWA)",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "python3 -m http.server 8080 --directory app",
+    "sync": "node tools/sync.mjs",
+    "test": "node tests/run.mjs",
+    "new-module": "node tools/new-module.mjs",
+    "import-module": "node tools/import-module.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.0"
+  }
+}
